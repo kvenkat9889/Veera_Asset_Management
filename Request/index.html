@@ -535,7 +535,7 @@
         // Load request data
 async function loadRequestData() {
     try {
-        const response = await fetch('http://localhost:3000/api/requests');
+        const response = await fetch('http://98.80.67.100:3019/api/requests');
         if (!response.ok) throw new Error('Failed to fetch requests');
         requests = await response.json();
         currentRequestIndex = 0;
@@ -588,7 +588,7 @@ async function loadAssignedAssets() {
     const assetsContainer = document.getElementById('assignedAssets');
     
     try {
-        const response = await fetch('http://localhost:3000/api/assigned-assets');
+        const response = await fetch('http://98.80.67.100:3019/api/assigned-assets');
         if (!response.ok) throw new Error('Failed to fetch assigned assets');
         const assignedAssets = await response.json();
         
@@ -628,7 +628,7 @@ async function loadRejectedRequests() {
     const rejectedContainer = document.getElementById('rejectedRequests');
     
     try {
-        const response = await fetch('http://localhost:3000/api/rejected-requests');
+        const response = await fetch('http://98.80.67.100:3019/api/rejected-requests');
         if (!response.ok) throw new Error('Failed to fetch rejected requests');
         const rejectedRequests = await response.json();
         
@@ -681,7 +681,7 @@ async function loadRejectedRequests() {
     const request = requests[currentRequestIndex];
     
     try {
-        const response = await fetch(`http://localhost:3000/api/requests/approve/${request.id}`, {
+        const response = await fetch(`http://98.80.67.100:3019/api/requests/approve/${request.id}`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
         });
@@ -716,7 +716,7 @@ async function rejectRequest() {
     const request = requests[currentRequestIndex];
     
     try {
-        const response = await fetch(`http://localhost:3000/api/requests/reject/${request.id}`, {
+        const response = await fetch(`http://98.80.67.100:3019/api/requests/reject/${request.id}`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
         });

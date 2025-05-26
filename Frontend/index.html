@@ -611,7 +611,7 @@ async function handleFormSubmission() {
     };
 
     try {
-        const response = await fetch('http://localhost:3000/api/deliveries', {
+        const response = await fetch('http://98.80.67.100:3019/api/deliveries', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(formData),
@@ -639,7 +639,7 @@ async function submitRequest() {
     };
 
     try {
-        const response = await fetch('http://localhost:3000/api/requests', {
+        const response = await fetch('http://98.80.67.100:3019/api/requests', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(requestData),

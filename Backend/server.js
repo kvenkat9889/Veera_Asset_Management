@@ -5,7 +5,7 @@ const cors = require('cors');
 require('dotenv').config();
 
 const app = express();
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 3019;
 
 // Middleware
 app.use(cors());
@@ -14,9 +14,9 @@ app.use(express.json());
 // PostgreSQL connection
 const pool = new Pool({
   user: 'postgres', // Replace with your PostgreSQL username
-  host: 'localhost',
+  host: 'postgres',
   database: 'asset_management',
-  password: 'Veera@0134', // Replace with your PostgreSQL password
+  password: 'admin123', // Replace with your PostgreSQL password
   port: 5432,
 });
 
