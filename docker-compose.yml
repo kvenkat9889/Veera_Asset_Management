@@ -1,0 +1,47 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:14
+    container_name: veera_postgres01
+    environment:
+      POSTGRES_DB: asset_management
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: admin123
+    ports:
+      - "5447:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+
+  backend:
+    build: ./Backend
+    container_name: veera_backend01
+    ports:
+      - "3019:3019"
+    env_file:
+      - ./Backend/server.env
+    depends_on:
+      - postgres
+
+  frontend:
+    build: ./Frontend
+    container_name: veera_frontend01
+    ports:
+      - "9029:80"
+
+  hr:
+    build: ./HR
+    container_name: veera_hr01
+    ports:
+      - "9030:80"
+
+  request:
+    build: ./Request
+    container_name: veera_request
+    ports:
+      - "9031:80"
+
+volumes:
+  pgdata:
+
