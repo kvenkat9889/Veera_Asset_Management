@@ -2,46 +2,57 @@ version: '3.8'
 
 services:
   postgres:
-    image: postgres:14
-    container_name: veera_postgres01
+    image: postgres:13
+    container_name: postgres33
     environment:
-      POSTGRES_DB: asset_management
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: admin123
+      POSTGRES_DB: asset_management
     ports:
       - "5566:5432"
     volumes:
-      - pgdata:/var/lib/postgresql/data
+      - postgres_data:/var/lib/postgresql/data
       - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
 
   backend:
     build: ./Backend
-    container_name: veera_backend01
+    container_name: backend31
     ports:
       - "3950:3950"
-    env_file:
-      - ./Backend/server.env
     depends_on:
-      - postgres
+      postgres:
+        condition: service_healthy
+    environment:
+      - NODE_ENV=production
 
   frontend:
     build: ./Frontend
-    container_name: veera_frontend01
+    container_name: frontend31
     ports:
       - "9001:80"
+    depends_on:
+      - backend
 
   hr:
     build: ./HR
-    container_name: veera_hr01
+    container_name: hr31
     ports:
       - "9002:80"
+    depends_on:
+      - backend
 
   request:
     build: ./Request
-    container_name: veera_request
+    container_name: request11
     ports:
       - "9003:80"
+    depends_on:
+      - backend
 
 volumes:
-  pgdata:
-
+  postgres_data:
